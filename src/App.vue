@@ -1,8 +1,14 @@
 <template>
-  <div class="container px-0">
-    <SearchBar @searchQuery="searchQuery" :cancel="onUserCancel"></SearchBar>
-    <ItunesList  :itunesResults="itunesResults"  :scroll="scroll"></ItunesList>
-    <div v-show="loading" class="loading loading-lg"></div>
+  <div>
+    <header>
+      <SearchBar @searchQuery="searchQuery" @cancel="onUserCancel"></SearchBar>
+    </header>
+    <b-container>
+      <ItunesList  :itunesResults="itunesResults"  :scroll="scroll"></ItunesList>
+      <div v-show="loading" class="text-center">
+        <b-spinner variant="primary" type="grow" label="Spinning"></b-spinner>
+      </div>
+    </b-container>
   </div>
 </template>
 
@@ -88,6 +94,7 @@ export default {
       this.searchTerm = '';
       this.searchOffset = 0;
       this.loading = false;
+      this.itunesResults = [];
     },
   },
   components: {
@@ -98,5 +105,12 @@ export default {
 </script>
 
 <style scoped>
+header {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  margin-bottom: 10px;
+  z-index: 1020;
+}
 
 </style>

@@ -1,13 +1,15 @@
 <template>
-  <div>
-    <itunesListItem
-      v-for="(itunesResult, index) in itunesResults"
-      :key="index"
-      :itunesResult="itunesResult"
-    >
-    </itunesListItem>
+  <b-row align-v="center">
+    <b-card-group columns>
+      <itunesListItem
+        v-for="(itunesResult, index) in itunesResults"
+        :key="index"
+        :itunesResult="itunesResult"
+      >
+      </itunesListItem>
+    </b-card-group>
     <Observer @intersect="intersected"/>
-  </div>
+  </b-row>
 </template>
 
 <script>

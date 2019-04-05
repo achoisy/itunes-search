@@ -1,23 +1,23 @@
 <template>
-  <div class="header columns col-gapless">
+  <b-row class="header">
     <transition
       name="slide-fade"
     >
-      <div v-if="!showCancel" class="column col-sm-12 col-6 headertitle">
-        <h1 class="text-light text-center">Recherche Itunes</h1>
-      </div>
+      <b-col v-if="!showCancel" cols="12" md="6" class="headertitle">
+        <h1 class="text-white">Recherche Itunes</h1>
+      </b-col>
     </transition>
-    <div class="column col-sm-12 col-6 col-mx-auto">
+    <b-col cols="12" md="6">
       <div class="serachbar">
         <div class="searchinput">
-          <md-search-icon w="25" h="40" class="searchicon px-2"/>
+          <md-search-icon w="25" h="40" class="searchicon"/>
           <input
             v-model="searchTerm"
-            @input="isTyping = true"
             :placeholder="placeholder"
             @focus="onInputFocus"
             @focusout="onInputFocusOut"
             ref="search"
+            @keyup.enter="onSubmit"
           />
         </div>
         <transition name="slide-out">
@@ -30,8 +30,8 @@
           </button>
         </transition>
       </div>
-    </div>
-  </div>
+    </b-col>
+  </b-row>
 </template>
 
 <script>
@@ -47,17 +47,6 @@ export default {
       searchTerm: '',
       isTyping: false,
     };
-  },
-  watch: {
-    searchTerm: _.debounce(function debounce() {
-      this.isTyping = false;
-    }, 3000),
-    isTyping(value) {
-      if (!value) {
-        console.log('Emit search string');
-        this.$emit('searchQuery', this.searchTerm);
-      }
-    },
   },
   methods: {
     onInputFocus() {
@@ -78,6 +67,10 @@ export default {
       this.searchTerm = '';
       this.$refs.search.blur();
       this.onInputFocusOut();
+      this.$emit('cancel');
+    },
+    onSubmit() {
+      this.$emit('searchQuery', this.searchTerm);
     },
   },
 };
