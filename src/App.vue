@@ -38,6 +38,7 @@ export default {
     searchApi() {
       this.loading = true;
       axios.get(`${config.API_URL}`, {
+        crossdomain: true,
         params: {
           country: 'fr',
           limit: '25',
