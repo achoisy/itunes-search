@@ -1,0 +1,45 @@
+// Required
+@import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/mixins";
+@mixin font-smoothing($value: on) {
+  @if $value==on {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  @else {
+    -webkit-font-smoothing: subpixel-antialiased;
+    -moz-osx-font-smoothing: auto;
+  }
+}
+
+.btn-dark {
+  color: #fff;
+  background-color: #0a0a0af5;
+  border-color: rgba(10, 10, 10, 0.96);
+  padding: 0px !important;
+}
+
+body {
+  background-color: #E5E5E5;
+  background-image: url('/itunes-search/img/itunes_mobile.svg');
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+}
+@media screen and (min-width: 720px) {
+  body {
+      background-image: url('/itunes-search/img/itunes_mobile.svg') !important;
+      background-size: 600px auto;
+      background-attachment: fixed !important;
+      background-position: center !important;
+  }
+}
+header {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  margin-bottom: 10px;
+  z-index: 1020;
+}

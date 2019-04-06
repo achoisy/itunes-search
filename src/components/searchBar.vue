@@ -8,28 +8,86 @@
       </b-col>
     </transition>
     <b-col cols="12" md="8">
-      <div class="serachbar">
-        <div class="searchinput">
-          <md-search-icon w="25" h="40" class="searchicon"/>
-          <input
-            v-model="searchTerm"
-            :placeholder="placeholder"
-            @focus="onInputFocus"
-            @focusout="onInputFocusOut"
-            ref="search"
-            @keyup.enter="onSubmit"
-          />
-        </div>
-        <transition name="slide-out">
-          <button
-            v-if="showCancel"
-            @click="onCancelclick"
-            class="btn btn-link cancel text-center"
-          >
-            Annuler
-          </button>
-        </transition>
-      </div>
+      <b-row align-v="center" align-h="center" class="no-gutters">
+        <b-col cols="2">
+          <b-dropdown variant="dark" class="d-flex" no-caret>
+            <template slot="button-content">
+              <div class="d-flex align-items-center justify-content-center">
+                <md-search-icon
+                  v-if="showIcon === 'all'"
+                  w="35" h="40"
+                  class="dropicon float-left mr-2"
+                />
+                <p class="m-0 mr-2 d-none d-lg-block">
+                  {{all}}
+                </p>
+                <img src="../../public/img/down.svg"  />
+              </div>
+            </template>
+            <b-dropdown-item class="d-flex align-items-center">
+              <md-search-icon w="30" h="30" class="float-left mr-2"/>
+              <p class="m-0">
+                Tous
+              </p>
+            </b-dropdown-item>
+            <b-dropdown-divider />
+            <b-dropdown-item class="d-flex align-items-center">
+              <md-videocam-icon w="30" h="30" class="float-left mr-2"/>
+              <p class="m-0">
+                Films
+              </p>
+            </b-dropdown-item>
+            <b-dropdown-item class="d-flex align-items-center">
+              <md-musical-notes-icon w="30" h="30" class="float-left mr-2"/>
+              <p class="m-0">
+                Music
+              </p>
+            </b-dropdown-item>
+            <b-dropdown-item class="d-flex align-items-center">
+              <md-book-icon w="30" h="30" class="float-left mr-2"/>
+              <p class="m-0">
+                Livre audio
+              </p>
+            </b-dropdown-item>
+            <b-dropdown-item class="d-flex align-items-center">
+              <md-wifi-icon w="30" h="30" class="float-left mr-2"/>
+              <p class="m-0">
+                Podcast
+              </p>
+            </b-dropdown-item>
+            <b-dropdown-item class="d-flex align-items-center">
+              <md-tv-icon w="30" h="30" class="float-left mr-2"/>
+              <p class="m-0">
+                Série TV
+              </p>
+            </b-dropdown-item>
+          </b-dropdown>
+        </b-col>
+        <b-col cols="10">
+          <div class="serachbar">
+            <div class="searchinput">
+              <md-search-icon w="25" h="40" class="mx-1 searchicon"/>
+              <input
+                v-model="searchTerm"
+                :placeholder="placeholder"
+                @focus="onInputFocus"
+                @focusout="onInputFocusOut"
+                ref="search"
+                @keyup.enter="onSubmit"
+              />
+            </div>
+            <transition name="slide-out">
+              <button
+                v-if="showCancel"
+                @click="onCancelclick"
+                class="btn btn-link cancel text-center"
+              >
+                Annuler
+              </button>
+            </transition>
+          </div>
+        </b-col>
+      </b-row>
     </b-col>
   </b-row>
 </template>
@@ -46,6 +104,8 @@ export default {
       showCancel: false,
       searchTerm: '',
       isTyping: false,
+      showIcon: 'all',
+      all: 'Films',
     };
   },
   methods: {
@@ -76,11 +136,11 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="css" scoped>
   .header {
     display: flex;
     height: 100%;
-    background: rgba(10, 10, 10, 0.96);
+    background: rgb(10, 10, 10);
 
   }
   .headertitle {
@@ -94,17 +154,26 @@ export default {
     width: 100%;
     align-items: center;
     justify-content: center;
+    margin-left: 5px;
+    padding-right: 2px;
   }
   .searchinput {
     display: flex;
     align-self: center;
     align-items: center;
     width: 100%;
-    margin: 0.75rem;
+    margin-left: 0px;
+    margin-right: 0.50rem;
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
     background: rgba(142, 142, 147, 0.3);
     border-radius: 10px;
     border: 0px;
     flex-grow: 1;
+  }
+  .dropdown-item {
+    padding-right: 0.75rem !important;
+    padding-left: 0.75rem !important;
   }
 
   input {
@@ -130,6 +199,10 @@ export default {
     display: flex;
     fill: #8E8E93;
   }
+  .dropicon {
+    fill: #fff;
+  }
+
   *:focus {
     outline: none;
   }

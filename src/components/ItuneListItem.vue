@@ -53,7 +53,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="css" scoped>
   .footer {
     color: white;
     background-color: #007AFF;

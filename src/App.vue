@@ -113,30 +113,8 @@ export default {
 };
 </script>
 
-<style>
-header {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
-  margin-bottom: 10px;
-  z-index: 1020;
-}
-body {
-  background-color: #E5E5E5 !important;
-  background-image: url('/itunes-search/img/itunes_mobile.svg') !important;
-  background-repeat: no-repeat !important;
-  -webkit-background-size: cover !important;
-  -moz-background-size: cover !important;
-  -o-background-size: cover !important;
-}
-
-@media screen and (min-width: 720px) {
-  body {
-      background-image: url('/itunes-search/img/itunes_mobile.svg') !important;
-      background-size: 600px auto;
-      background-attachment: fixed !important;
-      background-position: center !important;
-  }
-}
-
+<style lang="scss">
+  @import "~bootstrap/scss/bootstrap.scss";
+  @import '~bootstrap-vue/dist/bootstrap-vue.css';
+  @import "assets/custom.scss";
 </style>
