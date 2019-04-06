@@ -4,10 +4,15 @@
       <SearchBar @searchQuery="searchQuery" @cancel="onUserCancel"></SearchBar>
     </header>
     <b-container>
-      <ItunesList  :itunesResults="itunesResults"  :scroll="scroll"></ItunesList>
+      <ItunesList
+        :itunesResults="itunesResults"
+        :scroll="scroll"
+        @selectItem="selectItem"
+      ></ItunesList>
       <div v-show="loading" class="text-center">
         <b-spinner variant="primary" type="grow" label="Spinning"></b-spinner>
       </div>
+      <ItunesDetail :selectedItem="selectedItem"></ItunesDetail>
     </b-container>
   </div>
 </template>
@@ -17,6 +22,7 @@ import axios from 'axios';
 // import _ from 'lodash';
 import SearchBar from './components/searchBar';
 import ItunesList from './components/ItunesList';
+import ItunesDetail from './components/ItunesDetail';
 import config from './config/config.json';
 
 export default {
@@ -27,6 +33,7 @@ export default {
       loading: false,
       searchOffset: 0,
       searchTerm: '',
+      selectedItem: '',
     };
   },
   mounted() {
@@ -85,8 +92,6 @@ export default {
       ) {
         this.loading = true;
         this.searchOffset = this.itunesResults.length + 25;
-        console.log('Item length: ', this.itunesResults.length);
-        console.log('Offset: ', this.searchOffset);
         this.searchApi();
       }
     },
@@ -96,21 +101,42 @@ export default {
       this.loading = false;
       this.itunesResults = [];
     },
+    selectItem(item) {
+      this.selectedItem = item;
+    },
   },
   components: {
     SearchBar,
     ItunesList,
+    ItunesDetail,
   },
 };
 </script>
 
-<style scoped>
+<style>
 header {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
   margin-bottom: 10px;
   z-index: 1020;
+}
+body {
+  background-color: #E5E5E5 !important;
+  background-image: url('/itunes-search/img/itunes_mobile.svg') !important;
+  background-repeat: no-repeat !important;
+  -webkit-background-size: cover !important;
+  -moz-background-size: cover !important;
+  -o-background-size: cover !important;
+}
+
+@media screen and (min-width: 720px) {
+  body {
+      background-image: url('/itunes-search/img/itunes_mobile.svg') !important;
+      background-size: 600px auto;
+      background-attachment: fixed !important;
+      background-position: center !important;
+  }
 }
 
 </style>

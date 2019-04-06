@@ -1,13 +1,13 @@
 <template>
-  <b-row class="header">
+  <b-row class="header justify-content-md-center no-gutters">
     <transition
       name="slide-fade"
     >
-      <b-col v-if="!showCancel" cols="12" md="6" class="headertitle">
+      <b-col v-if="!showCancel" cols="12" md="4" class="headertitle text-center">
         <h1 class="text-white">Recherche Itunes</h1>
       </b-col>
     </transition>
-    <b-col cols="12" md="6">
+    <b-col cols="12" md="8">
       <div class="serachbar">
         <div class="searchinput">
           <md-search-icon w="25" h="40" class="searchicon"/>
@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import _ from 'lodash';
+// import _ from 'lodash';
 
 export default {
   name: 'SearchBar',
@@ -81,6 +81,7 @@ export default {
     display: flex;
     height: 100%;
     background: rgba(10, 10, 10, 0.96);
+
   }
   .headertitle {
     align-self: center;
@@ -101,7 +102,7 @@ export default {
     width: 100%;
     margin: 0.75rem;
     background: rgba(142, 142, 147, 0.3);
-    border-radius: 40px;
+    border-radius: 10px;
     border: 0px;
     flex-grow: 1;
   }
@@ -152,7 +153,7 @@ export default {
   }
   .slide-fade-enter, .slide-fade-leave-to
   /* .slide-fade-leave-active below version 2.1.8 */ {
-    transform: translateY(-10px);
+    transform: translateX(-10px);
     opacity: 0;
   }
   .slide-out-enter-active {
@@ -167,4 +168,11 @@ export default {
     opacity: 0.25;
   }
 
+  @media screen and (max-width: 720px) {
+    .slide-fade-enter, .slide-fade-leave-to
+    /* .slide-fade-leave-active below version 2.1.8 */ {
+      transform: translateY(-40px);
+      opacity: 0;
+    }
+  }
 </style>

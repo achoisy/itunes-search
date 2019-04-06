@@ -5,6 +5,7 @@
         v-for="(itunesResult, index) in itunesResults"
         :key="index"
         :itunesResult="itunesResult"
+        @selectItem="selectItem"
       >
       </itunesListItem>
     </b-card-group>
@@ -21,8 +22,10 @@ export default {
   props: ['itunesResults', 'scroll'],
   methods: {
     intersected() {
-      console.log('Observer');
       this.scroll();
+    },
+    selectItem(item) {
+      this.$emit('selectItem', item);
     },
   },
   components: {
