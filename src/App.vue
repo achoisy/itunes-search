@@ -20,7 +20,8 @@
 <script>
 import axios from 'axios';
 // import _ from 'lodash';
-import SearchBar from './components/searchBar';
+import Loader from './components/Loader';
+import SearchBar from './components/SearchBar';
 import ItunesList from './components/ItunesList';
 import ItunesDetail from './components/ItunesDetail';
 import config from './config/config.json';
@@ -29,6 +30,7 @@ export default {
   name: 'App',
   data() {
     return {
+      isLoading: true,
       itunesResults: [],
       loading: false,
       searchOffset: 0,
@@ -109,6 +111,7 @@ export default {
     SearchBar,
     ItunesList,
     ItunesDetail,
+    'loading-screen': Loader,
   },
 };
 </script>

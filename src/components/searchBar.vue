@@ -66,7 +66,6 @@
         <b-col cols="10">
           <div class="serachbar">
             <div class="searchinput">
-              <md-search-icon w="25" h="40" class="mx-1 searchicon"/>
               <input
                 v-model="searchTerm"
                 :placeholder="placeholder"
@@ -105,7 +104,7 @@ export default {
       searchTerm: '',
       isTyping: false,
       showIcon: 'all',
-      all: 'Films',
+      all: 'Tous',
     };
   },
   methods: {
@@ -185,6 +184,7 @@ export default {
     font-size: 20px;
     line-height: 22px;
     letter-spacing: -0.0241176em;
+    padding-left: 10px;
   }
 
   input::placeholder {
