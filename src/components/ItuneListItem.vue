@@ -9,10 +9,10 @@
       <b-col cols="12" class="text-center footer mb-2">
         <small class="text-white">{{itunesResult.kind.toUpperCase()}}</small>
       </b-col>
-      <b-col cols="4">
+      <b-col v-if="thumbnailUrl" cols="4">
         <b-img-lazy v-bind="mainProps" :src="thumbnailUrl" rounded ></b-img-lazy>
       </b-col>
-      <b-col cols="8">
+      <b-col>
         <b-card-body class="p-0 pl-3">
           <b-card-title>
             <h6>{{itunesResult.trackName}}</h6>
@@ -42,6 +42,9 @@ export default {
   },
   computed: {
     thumbnailUrl() {
+      if (!this.itunesResult.artworkUrl100) {
+        return '';
+      }
       return this.itunesResult.artworkUrl100;
     },
   },

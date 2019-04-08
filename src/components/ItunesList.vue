@@ -21,6 +21,7 @@ export default {
   name: 'ItunesList',
   props: ['itunesResults', 'scroll'],
   methods: {
+    // Scrolling observer
     intersected() {
       this.scroll();
     },

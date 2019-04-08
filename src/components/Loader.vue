@@ -26,12 +26,11 @@ export default {
   },
   methods: {
     open() {
-      // Attaching a `pleaseWaitInstance` property (no need to declare)...
       if (!this.pleaseWaitInstance) {
         this.pleaseWaitInstance = pleaseWait({
           logo: '/itunes-search/img/logo.svg',
           backgroundColor: '#0A0A0A',
-          loadingHtml: '<p class="loading-message">A good day to you fine user!</p>',
+          loadingHtml: '<h1 class="loading-message" style="color: white;">Made with Love</h1> <p style="color: #555555;"><small>Alexandre Choisy</small></p>',
         });
       }
     },
@@ -47,6 +46,6 @@ export default {
 
 <style lang="scss" scoped>
   .loading-message {
-    color: white;
+
   }
 </style>

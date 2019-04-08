@@ -12,6 +12,7 @@ export default {
     };
   },
   mounted() {
+    // Use IntersectionObserver to observe end of scrolling
     const { options } = this;
     this.observer = new IntersectionObserver(([entry]) => {
       if (entry && entry.isIntersecting) {

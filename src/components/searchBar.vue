@@ -9,61 +9,37 @@
     </transition>
     <b-col cols="12" md="8">
       <b-row align-v="center" align-h="center" class="no-gutters">
-        <b-col cols="2">
-          <b-dropdown variant="dark" class="d-flex" no-caret>
+        <b-col cols="3">
+          <b-dropdown variant="dark" class="d-flex" no-caret right>
             <template slot="button-content">
-              <div class="d-flex align-items-center justify-content-center">
-                <md-search-icon
-                  v-if="showIcon === 'all'"
-                  w="35" h="40"
+              <div class="d-flex align-items-center justify-content-end">
+                <component :is="seletedDropdown.icon"
+                  w="30" h="40"
                   class="dropicon float-left mr-2"
-                />
+                ></component>
                 <p class="m-0 mr-2 d-none d-lg-block">
-                  {{all}}
+                  {{seletedDropdown.text}}
                 </p>
                 <img src="../../public/img/down.svg"  />
               </div>
             </template>
-            <b-dropdown-item class="d-flex align-items-center">
-              <md-search-icon w="30" h="30" class="float-left mr-2"/>
+            <b-dropdown-item
+              v-for="(item, index) in dropdownMenu"
+              :key="index"
+              @click="onDropdownClick(item)"
+              class="d-flex align-items-center"
+            >
+              <component :is="item.icon"
+                w="30" h="30"
+                class="dropicon float-left mr-2"
+              ></component>
               <p class="m-0">
-                Tous
-              </p>
-            </b-dropdown-item>
-            <b-dropdown-divider />
-            <b-dropdown-item class="d-flex align-items-center">
-              <md-videocam-icon w="30" h="30" class="float-left mr-2"/>
-              <p class="m-0">
-                Films
-              </p>
-            </b-dropdown-item>
-            <b-dropdown-item class="d-flex align-items-center">
-              <md-musical-notes-icon w="30" h="30" class="float-left mr-2"/>
-              <p class="m-0">
-                Music
-              </p>
-            </b-dropdown-item>
-            <b-dropdown-item class="d-flex align-items-center">
-              <md-book-icon w="30" h="30" class="float-left mr-2"/>
-              <p class="m-0">
-                Livre audio
-              </p>
-            </b-dropdown-item>
-            <b-dropdown-item class="d-flex align-items-center">
-              <md-wifi-icon w="30" h="30" class="float-left mr-2"/>
-              <p class="m-0">
-                Podcast
-              </p>
-            </b-dropdown-item>
-            <b-dropdown-item class="d-flex align-items-center">
-              <md-tv-icon w="30" h="30" class="float-left mr-2"/>
-              <p class="m-0">
-                Série TV
+                {{item.text}}
               </p>
             </b-dropdown-item>
           </b-dropdown>
         </b-col>
-        <b-col cols="10">
+        <b-col cols="9">
           <div class="serachbar">
             <div class="searchinput">
               <input
@@ -76,13 +52,20 @@
               />
             </div>
             <transition name="slide-out">
-              <button
-                v-if="showCancel"
-                @click="onCancelclick"
-                class="btn btn-link cancel text-center"
-              >
-                Annuler
-              </button>
+              <div v-if="showCancel" class="d-flex">
+                <button
+                  @click="onCancelclick"
+                  class="btn btn-link cancel text-center"
+                >
+                  Annuler
+                </button>
+                <button
+                  @click="onSubmit"
+                  class="btn btn-link cancel text-center d-none d-lg-block"
+                >
+                  Chercher
+                </button>
+              </div>
             </transition>
           </div>
         </b-col>
@@ -103,11 +86,55 @@ export default {
       showCancel: false,
       searchTerm: '',
       isTyping: false,
-      showIcon: 'all',
-      all: 'Tous',
+      dropdownMenu: [
+        {
+          media: 'all',
+          text: 'Tous',
+          icon: 'md-search-icon',
+        },
+        {
+          media: 'movie',
+          text: 'Films',
+          icon: 'md-videocam-icon',
+        },
+        {
+          media: 'podcast',
+          text: 'Podcasts',
+          icon: 'md-wifi-icon',
+        },
+        {
+          media: 'music',
+          text: 'Musique',
+          icon: 'md-musical-notes-icon',
+        },
+        {
+          media: 'audiobook',
+          text: 'Livres audio',
+          icon: 'md-book-icon',
+        },
+        {
+          media: 'tvShow',
+          text: 'Séries TV',
+          icon: 'md-tv-icon',
+        },
+      ],
+      seletedDropdown: {
+        media: 'all',
+        text: 'Tous',
+        icon: 'md-search-icon',
+      },
     };
   },
   methods: {
+    onDropdownClick(item) {
+      this.seletedDropdown = item;
+      this.$emit('selectedMedia', this.seletedDropdown);
+
+      // if searchterm then send new axios request with new selected media
+      if (this.searchTerm) {
+        this.$emit('searchQuery', this.searchTerm);
+      }
+    },
     onInputFocus() {
       // On focus in erase placeholder text and show cancel button
       this.placeholder = '';
@@ -129,6 +156,7 @@ export default {
       this.$emit('cancel');
     },
     onSubmit() {
+      this.$refs.search.blur();
       this.$emit('searchQuery', this.searchTerm);
     },
   },
@@ -150,7 +178,6 @@ export default {
   }
   .serachbar {
     display: flex;
-    width: 100%;
     align-items: center;
     justify-content: center;
     margin-left: 5px;
